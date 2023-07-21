@@ -1,6 +1,6 @@
 # Minikube on AWS EC2
 
-### Install docker on EC2(t2.medium and Ubuntu 20.04 LTS)
+### Install docker on EC2(t3.medium and Ubuntu 20.04 LTS)
 ```
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg lsb-release
