@@ -1,0 +1,36 @@
+apiVersion: v1 
+kind: Service 
+metadata:
+ name: ingress-nginx 
+spec:
+ type: NodePort 
+ ports:
+ - name: http
+   port: 80 
+   targetPort: 80 
+   protocol: TCP
+ selector:
+  app: nginx-frontend
+
+---
+
+apiVersion: v1 
+kind: Pod 
+metadata:
+ name: backend-pod 
+ labels:
+  app: nginx-frontend
+spec:
+ containers:
+ - name: nginx-container
+   image: nginx 
+   ports:
+    - containerPort: 80
+
+---
+
+kubectl create –f nodeportservice.yml 
+kubectl create –f pod.yml
+root@alpine: # curl ingress-nginx
+check the endpoints: kubectl describe svc/<svc-name>
+

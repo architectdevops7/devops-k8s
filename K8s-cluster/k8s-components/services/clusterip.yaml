@@ -1,0 +1,35 @@
+apiVersion: v1 
+kind: Service 
+metadata:
+ name: ingress-nginx 
+spec:
+ type: ClusterIP 
+ ports:
+ - name: http
+   port: 80 
+   targetPort: 80 
+   protocol: TCP
+ selector:
+  app: nginx-backend
+
+---
+
+apiVersion: v1 
+kind: Pod 
+metadata:
+ name: backend-pod 
+ labels:
+  app: nginx-backend
+spec:
+ containers:
+ - name: nginx-container
+   image: nginx 
+   ports:
+    - containerPort: 80
+
+---
+
+kubectl create –f clusterservice.yml kubectl create –f pod.yml
+root@alpine: # curl ingress-nginx
+check the endpoints: kubectl describe svc/<svc-name>
+
