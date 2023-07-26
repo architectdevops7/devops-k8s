@@ -1,9 +1,14 @@
-apiVersion: v1 kind: Service metadata:
-name: lb-service labels:
-app: hello
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: lb-service 
+labels:
+  app: hello
 spec:
-type: LoadBalancer selector:
-app: hello
-ports:
-- port: 80
-targetPort: 80 protocol: TCP
+  type: LoadBalancer 
+  selector:
+    app: hello
+  ports:
+  - port: 80
+    targetPort: 80 
+    protocol: TCP
