@@ -14,12 +14,14 @@ Save it in a location like ~/.kube/config.
 ```
 ### Step3: Verify kubectl configuration:
 ```
-Run kubectl config view on your local machine to check if kubectl is configured to use the correct kubeconfig file and context for your Kubernetes cluster.
+Run kubectl config view on your local machine to check if kubectl is configured <br>
+to use the correct kubeconfig file and context for your Kubernetes cluster.
 ```
 
 ### Step4: Access the cluster:
 ```
-Now that your kubectl is configured, you can run any kubectl commands to interact with your Kubernetes cluster. For example:
+Now that your kubectl is configured, you can run any kubectl commands <br>
+to interact with your Kubernetes cluster. For example:
 > kubectl get nodes to view the list of nodes in your cluster.
 > kubectl get pods -n <namespace> to view pods in a specific namespace.
 > kubectl apply -f <filename> to deploy resources using YAML manifests.
@@ -27,5 +29,6 @@ Now that your kubectl is configured, you can run any kubectl commands to interac
 
 ### Step5: (Optional) Set up port forwarding or VPN:
 ```
-If you need to access services running in the Kubernetes cluster from your local machine, you can set up port forwarding or use a VPN to connect securely to the cluster.
+If you need to access services running in the Kubernetes cluster from your local machine,<br>
+you can set up port forwarding or use a VPN to connect securely to the cluster.
 ```
