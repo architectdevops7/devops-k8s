@@ -18,14 +18,14 @@ microservices-project/
 |-- service1/
 |   |-- package.json
 |   |-- index.js
+|   |-- service1-deployment.yaml
+|   |-- service1-service.yaml
 |-- service2/
 |   |-- package.json
 |   |-- index.js
-|-- k8s/
-|   |-- nginx-ingress-controller.yaml
-|   |-- service1-deployment.yaml
-|   |-- service1-service.yaml
 |   |-- service2-deployment.yaml
 |   |-- service2-service.yaml
+|-- k8s/
+|   |-- nginx-ingress-controller.yaml
 ```
 
