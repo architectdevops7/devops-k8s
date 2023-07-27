@@ -6,7 +6,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 Demo: Ingress controller & rules
 ```
-• 3VMs K8s Cluster + 1 VM for Reverse Proxy
+• 2VMs K8s Cluster 
 • Deploy Ingress controller
 • Deploy pods
 • Deploy services
