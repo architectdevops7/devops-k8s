@@ -2,12 +2,15 @@
 
 ### Step1: Install kubectl on your local machine:
 ```
-Follow the official Kubernetes documentation to install kubectl for your operating system: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+Follow the official Kubernetes documentation to install kubectl for your operating system: 
+https://kubernetes.io/docs/tasks/tools/install-kubectl/
 ```
 ### Step2: Configure kubectl to connect to your cluster:
 ```
-On your local machine, copy the kubeconfig file from one of the EC2 instances where the Kubernetes cluster is running. The kubeconfig file is typically located at /etc/kubernetes/admin.conf or /etc/kubernetes/kubeconfig.
-Use SCP or any other method to transfer the kubeconfig file to your local machine. Save it in a location like ~/.kube/config.
+On your local machine, copy the kubeconfig file from one of the EC2 instances where the Kubernetes cluster is running. 
+The kubeconfig file is typically located at /etc/kubernetes/admin.conf or /etc/kubernetes/kubeconfig.
+Use SCP or any other method to transfer the kubeconfig file to your local machine. 
+Save it in a location like ~/.kube/config.
 ```
 ### Step3: Verify kubectl configuration:
 ```
