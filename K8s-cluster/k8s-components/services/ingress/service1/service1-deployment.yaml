@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service1-deployment
+spec:
+  replicas: 3   # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: service1
+  template:
+    metadata:
+      labels:
+        app: service1
+    spec:
+      containers:
+        - name: service1-container
+          image: your-service1-image:latest  # Replace with the image for service1
+          ports:
+            - containerPort: 80
