@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: service1-container
-          image: your-service1-image:latest  # Replace with the image for service1
+          image: service1-image:latest  # Replace with the image for service1
           ports:
             - containerPort: 80
