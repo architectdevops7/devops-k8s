@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: service2-service
 spec:
+  type: ClusterIP
   selector:
     app: service2
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 3000
