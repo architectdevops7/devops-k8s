@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Common setup for Control Plane and Nodes
+# Common setup for all servers (Control Plane and Nodes)
 
 set -euxo pipefail
 
@@ -10,7 +10,11 @@ KUBERNETES_VERSION="1.26.3-00"
 
 # disable swap
 sudo swapoff -a
-sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+# keeps the swaf off during reboot
+(crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | crontab - || true
+sudo apt-get update -y
+
 
 # Install CRI-O Runtime
 
@@ -53,29 +57,6 @@ sudo systemctl daemon-reload
 sudo systemctl enable crio --now
 
 echo "CRI runtime installed susccessfully"
-
-# Install CNI pluging and CRICTL
-CNI_PLUGIN_VERSION="v1.3.0"
-CNI_PLUGIN_TAR="cni-plugins-linux-amd64-$CNI_PLUGIN_VERSION.tgz" # change arch if not on amd64
-CNI_PLUGIN_INSTALL_DIR="/opt/cni/bin"
-
-curl -LO "https://github.com/containernetworking/plugins/releases/download/$CNI_PLUGIN_VERSION/$CNI_PLUGIN_TAR"
-sudo mkdir -p "$CNI_PLUGIN_INSTALL_DIR"
-sudo tar -xf "$CNI_PLUGIN_TAR" -C "$CNI_PLUGIN_INSTALL_DIR"
-rm "$CNI_PLUGIN_TAR"
-
-VERSION="v1.26.0" # check latest version in /releases page
-wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/crictl-$VERSION-linux-amd64.tar.gz
-sudo tar zxvf crictl-$VERSION-linux-amd64.tar.gz -C /usr/local/bin
-rm -f crictl-$VERSION-linux-amd64.tar.gz
-
-cat <<EOF | sudo tee /etc/crictl.yaml
-runtime-endpoint: unix:///run/containerd/containerd.sock
-image-endpoint: unix:///run/containerd/containerd.sock
-timeout: 2
-debug: false
-pull-image-on-create: false
-EOF
 
 # Install kubelet, kubectl and Kubeadm
 
