@@ -5,7 +5,7 @@ metadata:
 
 ---
 
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: test-selfsigned
@@ -13,7 +13,7 @@ metadata:
 spec:
   selfSigned: {}
 ---
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: selfsigned-cert
@@ -25,7 +25,7 @@ spec:
     name: test-selfsigned
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hotel-ingress
@@ -45,10 +45,12 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: hotel-svc
-          servicePort: 80
-        
+          service:
+            name: hotel-svc
+            port:
+              number: 80
 ---
 
 apiVersion: apps/v1
