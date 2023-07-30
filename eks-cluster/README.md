@@ -37,8 +37,10 @@ chmod +x ./kubectl
 mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
 kubectl version --short --client
 https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
+```
 
-Update kubeconfig to access the cluster
+### Update kubeconfig to access the cluster
+```
 aws eks --region us-east-1 update-kubeconfig --name cluster01
 export KUBECONFIG=~/.kube/config
 ```
