@@ -11,7 +11,7 @@ Deploying demo application
 
 ### Note: Do all the kubectl operations from ec2 instance (that should be launched in same VPC of EKS cluster)
 
-Install and setup IAM authenticator
+### Install and setup IAM authenticator
 ```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 apt install unzip
