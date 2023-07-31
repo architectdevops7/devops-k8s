@@ -1,0 +1,116 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateInstanceProfile",
+                "iam:DeleteInstanceProfile",
+                "iam:GetInstanceProfile",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:GetRole",
+                "iam:CreateRole",
+                "iam:DeleteRole",
+                "iam:AttachRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:ListInstanceProfiles",
+                "iam:AddRoleToInstanceProfile",
+                "iam:ListInstanceProfilesForRole",
+                "iam:PassRole",
+                "iam:DetachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:GetRolePolicy",
+                "iam:GetOpenIDConnectProvider",
+                "iam:CreateOpenIDConnectProvider",
+                "iam:DeleteOpenIDConnectProvider",
+                "iam:TagOpenIDConnectProvider",
+                "iam:ListAttachedRolePolicies",
+                "iam:TagRole",
+                "iam:GetPolicy",
+                "iam:CreatePolicy",
+                "iam:DeletePolicy",
+                "iam:ListPolicyVersions"
+            ],
+            "Resource": [
+                "arn:aws:iam::583863161223:instance-profile/eksctl-*",
+                "arn:aws:iam::583863161223:role/eksctl-*",
+                "arn:aws:iam::583863161223:policy/eksctl-*",
+                "arn:aws:iam::583863161223:oidc-provider/*",
+                "arn:aws:iam::583863161223:role/aws-service-role/eks-nodegroup.amazonaws.com/AWSServiceRoleForAmazonEKSNodegroup",
+                "arn:aws:iam::583863161223:role/eksctl-managed-*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::583863161223:role/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "eks:CreateCluster",
+                "eks:DescribeCluster",
+                "eks:UpdateClusterVersion",
+                "eks:ListClusters"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "eks:DescribeNodegroup",
+                "eks:ListNodegroups",
+                "eks:DeleteNodegroup"
+            ],
+            "Resource": [
+                "arn:aws:eks:us-east-1:583863161223:cluster/eks-cluster-02",
+                "arn:aws:eks:us-east-1:583863161223:nodegroup/eks-cluster-02/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": "eks:TagResource",
+            "Resource": "arn:aws:eks:us-east-1:583863161223:cluster/eks-cluster-02"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "eks:CreateNodegroup",
+            "Resource": "arn:aws:eks:us-east-1:583863161223:cluster/eks-cluster-02"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "eks:*",
+            "Resource": "arn:aws:eks:us-east-1:583863161223:cluster/eks-cluster-02"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "eks:DescribeUpdate",
+            "Resource": "arn:aws:eks:us-east-1:583863161223:cluster/eks-cluster-02"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "eks:ListUpdates",
+            "Resource": "arn:aws:eks:us-east-1:583863161223:cluster/eks-cluster-02"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateServiceLinkedRole"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": [
+                        "eks.amazonaws.com",
+                        "eks-nodegroup.amazonaws.com",
+                        "eks-fargate.amazonaws.com"
+                    ]
+                }
+            }
+        }
+    ]
+}
