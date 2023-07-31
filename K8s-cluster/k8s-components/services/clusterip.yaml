@@ -1,35 +1,38 @@
-apiVersion: v1 
-kind: Service 
+apiVersion: apps/v1
+kind: Deployment
 metadata:
- name: ingress-nginx 
+  name: coffee
+  namespace: cafe
 spec:
- type: ClusterIP 
- ports:
- - name: http
-   port: 80 
-   targetPort: 80 
-   protocol: TCP
- selector:
-  app: nginx-backend
-
+  replicas: 2
+  selector:
+    matchLabels:
+      app: coffee
+  template:
+    metadata:
+      labels:
+        app: coffee
+    spec:
+      containers:
+      - name: coffee
+        image: nginxdemos/hello:plain-text
+        ports:
+        - containerPort: 80
 ---
 
-apiVersion: v1 
-kind: Pod 
+apiVersion: v1
+kind: Service
 metadata:
- name: backend-pod 
- labels:
-  app: nginx-backend
+  name: coffee-svc
+  namespace: cafe
+  labels:
+    app: coffee
 spec:
- containers:
- - name: nginx-container
-   image: nginx 
-   ports:
-    - containerPort: 80
-
----
-
-kubectl create –f clusterservice.yml kubectl create –f pod.yml
-root@alpine: # curl ingress-nginx
-check the endpoints: kubectl describe svc/<svc-name>
-
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: coffee
