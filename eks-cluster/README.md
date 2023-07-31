@@ -97,3 +97,9 @@ In the second script (create-node-group.yaml), we have removed the cluster's met
 ```
 eksctl create nodegroup -f create-node-group.yaml
 ```
+
+### Removes the cache
+Error: checking AWS STS access – cannot get role ARN for current session: operation error STS: GetCallerIdentity, failed to sign request: failed to retrieve credentials: failed to refresh cached credentials, failed to get EKSRoleforEC2 EC2 IMDS role credentials, api error AssumeRoleUnauthorizedAccess: EC2 cannot assume the role EKSRoleforEC2.  Please see documentation at https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_iam-ec2.html#troubleshoot_iam-ec2_errors-info-doc.
+```
+echo 3 > /proc/sys/vm/drop_caches
+```
