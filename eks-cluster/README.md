@@ -85,17 +85,15 @@ eksctl delete cluster <your-cluster-name>
 ```
 
 ### Create the EKS cluster
-```
 In the first script (create-eks-cluster.yaml), we have only specified the basic cluster configuration, including the cluster name, region, and version. The subnets for the VPC are defined as well.
-```
+
 ```
 eksctl create cluster -f create-eks-cluster.yaml
 ```
 
 ### Create the EKS node group
-```
 In the second script (create-node-group.yaml), we have removed the cluster's metadata and retained only the managed node group configuration. This includes details about the node group like the name, instance type, desired capacity, volume size, subnets, and IAM policies attached to the nodes.
-```
+
 ```
 eksctl create nodegroup -f create-node-group.yaml
 ```
