@@ -10,8 +10,10 @@ kind: Ingress
 metadata:
   name: hotel-ingress
   namespace: hotel
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
   rules:
   - host: hotel.example.com 
     http:
