@@ -46,8 +46,40 @@ export KUBECONFIG=~/.kube/config
 ```
 
 ### To provision cluster via ekscli
+### To create an EKS cluster, you require a launch pad, for today we shall be using an Amazon Linux 2 EC2 server as our eks launchpad.
+
+```
+Step1: Install kubectl in ubuntu
+
+Step2: Install the eksctl
+
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+export PATH=$PATH:/usr/local/bin
+echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
+eksctl version
+
+Step3: Create an IAM Role for EC2
+EC2, CloudFormation, EKS -> Full Access
+IAM limited access
+
+Attach the role to EC2 instance
+```
+
+### Execute the below command from launcpad ec2 instance
 ```
 eksctl create cluster --name cluster02 --region us-east-1 \
   --nodegroup-name eks-cluster-ng --node-type t2.micro --nodes 2 --nodes-min 1 --nodes-max 5 --ssh-access --ssh-public-key k8s.pem --node-volume-size 20 \
   --managed
+```
+
+### Execute the cluster.yaml from manifest folder to create cluster along with nodegroups
+```
+eksctl create cluster -f ekscluster.yaml --dry-run
+eksctl create cluster -f ekscluster.yaml
+```
+
+### Cleanup the eks cluster
+```
+eksctl delete cluster <your-cluster-name>
 ```
