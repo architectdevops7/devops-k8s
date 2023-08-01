@@ -14,9 +14,12 @@ spec:
         app: hotel
     spec:
       volumes:
-      - name: volume
+      - name: volume1
         hostPath:
-          path: /mnt/data
+          path: /mnt/data1
+      - name: volume2
+        hostPath:
+          path: /mnt/data2
 
       containers:
       - name: coffee
@@ -24,7 +27,7 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-          - name: volume
+          - name: volume1
             mountPath: "/var/coffee"
 
       containers:
@@ -32,3 +35,6 @@ spec:
         image: nginxdemos/hello:plain-text
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name: volume2
+            mountPath: "/var/tea"

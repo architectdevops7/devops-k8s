@@ -32,3 +32,6 @@ spec:
         image: nginxdemos/hello:plain-text
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name: volume
+            mountPath: "/var/tea"

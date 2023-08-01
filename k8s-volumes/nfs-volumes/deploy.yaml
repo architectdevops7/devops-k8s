@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotel
+  namespace: cafe
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hotel
+  template:
+    metadata:
+      labels:
+        app: hotel
+    spec:
+      volumes:
+      - name: volume
+        hostPath:
+          path: /mnt/data
+
+      containers:
+      - name: coffee
+        image: nginxdemos/hello:plain-text
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: volume
+            mountPath: "/var/coffee"
+
+      containers:
+      - name: tea
+        image: nginxdemos/hello:plain-text
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: volume
+            mountPath: "/var/tea"
