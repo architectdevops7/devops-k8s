@@ -1,40 +1,39 @@
+# multi-container-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hotel
-  namespace: cafe
+  name: multi-container-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hotel
+      app: multi-container-pod
   template:
     metadata:
       labels:
-        app: hotel
+        app: multi-container-pod
     spec:
       volumes:
-      - name: volume1
-        hostPath:
-          path: /mnt/data1
-      - name: volume2
-        hostPath:
-          path: /mnt/data2
-
+        - name: volume1
+          hostPath:
+            path: /opt/nginx
+        - name: volume2
+          hostPath:
+            path: /opt/busybox
+      
       containers:
-      - name: coffee
-        image: nginxdemos/hello:plain-text
-        ports:
-        - containerPort: 80
-        volumeMounts:
-          - name: volume1
-            mountPath: "/var/coffee"
+        - name: frontend
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: volume1
+              mountPath: "/var/nginx-data"
 
-      containers:
-      - name: tea
-        image: nginxdemos/hello:plain-text
-        ports:
-        - containerPort: 80
-        volumeMounts:
-          - name: volume2
-            mountPath: "/var/tea"
+        - name: backend
+          image: busybox
+          command: ["/bin/sh"]
+          args: ["-c", "while true; do echo 'Backend container is running...'; sleep 60; done"]
+          volumeMounts:
+            - name: volume2
+              mountPath: "/var/busybox-data"
