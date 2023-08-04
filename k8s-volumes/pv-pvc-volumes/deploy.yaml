@@ -1,33 +1,18 @@
-# multi-container-deployment.yaml
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  name: multi-container-deployment
+  name: pv-task-pod
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: multi-container-pod
-  template:
-    metadata:
-      labels:
-        app: multi-container-pod
-    spec:
-      volumes:
-        - name: app-pv-claim
-          persistentVolumeClaim:
-            claimName: app-pv-claim
-      
-      containers:
-        - name: frontend
-          image: nginx
-          ports:
-            - containerPort: 80
-          volumeMounts:
-            - name: app-pv-claim
-              mountPath: "/opt/persist"
-
-        - name: backend
-          image: busybox
-          command: ["/bin/sh"]
-          args: ["-c", "while true; do echo 'Backend container is running...'; sleep 60; done"]
+  volumes:
+    - name: pv-vol
+      persistentVolumeClaim:
+        claimName: k8s-pv-claim
+  nodeName: k8s-worker-3
+  containers:
+    - name: pv-pod
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: pv-vol

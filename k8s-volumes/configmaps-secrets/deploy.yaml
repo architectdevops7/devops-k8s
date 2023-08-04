@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+data:
+  app_config.ini: |
+    [app]
+    version = 1.0
+    environment = production
+    api_key = abc123
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+type: Opaque
+data:
+  db_password: ZGV2b3BzcGFzc3dvcmQxMjM=
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/nginx/app_config
+        - name: secret-volume
+          mountPath: /etc/nginx/secrets
+  volumes:
+    - name: config-volume
+      configMap:
+        name: my-configmap
+    - name: secret-volume
+      secret:
+        secretName: my-secret
