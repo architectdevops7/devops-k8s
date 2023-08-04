@@ -1,11 +1,11 @@
-apiVersion: v1
 kind: PersistentVolumeClaim
+apiVersion: v1
 metadata:
-  name: hotel-pv-claim
+  name: app-pv-claim
 spec:
   storageClassName: hotelstorage
-  accessMode:
-  - ReadWriteOnce
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 20G
+      storage: 20Gi
