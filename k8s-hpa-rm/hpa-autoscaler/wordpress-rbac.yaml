@@ -1,0 +1,29 @@
+# ServiceAccount to be used by the WordPress pods
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: wordpress-sa
+
+# Role to allow read access to the WordPress Deployment and Secrets
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: wordpress-role
+rules:
+- apiGroups: [""]
+  resources: ["pods", "secrets"]
+  verbs: ["get", "list", "watch"]
+# Add other rules as needed for additional resources
+
+# RoleBinding to associate the ServiceAccount with the Role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: wordpress-rolebinding
+subjects:
+- kind: ServiceAccount
+  name: wordpress-sa
+roleRef:
+  kind: Role
+  name: wordpress-role
+  apiGroup: rbac.authorization.k8s.io

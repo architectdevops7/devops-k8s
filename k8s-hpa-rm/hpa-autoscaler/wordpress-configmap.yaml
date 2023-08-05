@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpress-config
+data:
+  wp-config.php: |
+    <?php
+    define( 'DB_HOST', 'mongodb' );
+    define( 'DB_NAME', 'mywordpressdb' );
+    define( 'DB_USER', 'mywordpressuser' );
+    define( 'DB_PASSWORD', '<password-placeholder>' );
+    // Add any other custom configurations here
+    ?>

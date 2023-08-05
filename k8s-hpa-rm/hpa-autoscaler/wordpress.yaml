@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      serviceAccountName: wordpress-sa
+      containers:
+        - name: wordpress
+          image: wordpress:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: mongodb
+            - name: WORDPRESS_DB_NAME
+              value: mywordpressdb
+            - name: WORDPRESS_DB_USER
+              value: mywordpressuser
+            - name: WORDPRESS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wordpress-db-secret
+                  key: password
+          volumeMounts:
+            - name: wordpress-config
+              mountPath: /var/www/html/wp-config.php
+              subPath: wp-config.php
+              readOnly: true
+      volumes:
+        - name: wordpress-config
+          configMap:
+            name: wordpress-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+spec:
+  selector:
+    app: wordpress
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer # Use LoadBalancer type if you want to expose it to the internet
+
