@@ -8,6 +8,6 @@ data:
     define( 'DB_HOST', 'mongodb' );
     define( 'DB_NAME', 'mywordpressdb' );
     define( 'DB_USER', 'mywordpressuser' );
-    define( 'DB_PASSWORD', '<password-placeholder>' );
+    define( 'DB_PASSWORD', 'd29yZHByZXNzZGJwYXNz' );
     // Add any other custom configurations here
     ?>
