@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: wordpress
+  labels:
+    app: capstone
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: capstone
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: capstone
+        tier: frontend
+    spec:
+      volumes:
+      - name: wordpress-persistent-storage
+        persistentVolumeClaim:
+          claimName: wp-pv-claim  
+      containers:
+      - name: wordpress
+        image: wordpress:5.1.1-php7.3-apache
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: wordpress-persistent-storage
+          mountPath: /var/www/html

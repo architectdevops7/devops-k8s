@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+  labels:
+    app: capstone
+    tier: frontend
+spec:
+  selector:
+    app: capstone
+    tier: frontend
+  type: LoadBalancer
+  ports:
+  #  - protocol: TCP
+   -  port: 80
+      targetPort: 80
+      nodePort: 30050
