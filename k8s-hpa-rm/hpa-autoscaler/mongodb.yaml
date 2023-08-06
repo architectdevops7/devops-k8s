@@ -22,15 +22,10 @@ spec:
           volumeMounts:
             - name: mongodb-storage
               mountPath: /data/db
-  volumeClaimTemplates:
-    - metadata:
-        name: mongodb-storage
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 5Gi
-
+      volumes:
+        - name: mongodb-storage
+          persistentVolumeClaim:
+            claimName: mongodb-storage
 ---
 apiVersion: v1
 kind: Service
