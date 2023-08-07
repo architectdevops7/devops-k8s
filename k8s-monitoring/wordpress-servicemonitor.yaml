@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: wordpress-monitor
+spec:
+  selector:
+    matchLabels:
+      app: capstone
+      tier: frontend
+  endpoints:
+    - port: scrape
+      interval: 30s
+      path: /metrics

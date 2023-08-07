@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpress-htaccess
+data:
+  .htaccess: |
+    RewriteEngine On
+    RewriteRule ^metrics$ /wp-json/prometheus_exporter/v1/metrics [L]
