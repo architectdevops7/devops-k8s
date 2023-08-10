@@ -29,3 +29,8 @@ microservices-project/
 |   |-- nginx-ingress-controller.yaml
 ```
 
+### Nginx Ingress Controller
+```
+https://github.com/nginxinc/kubernetes-ingress
+```
+
