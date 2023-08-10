@@ -1,3 +1,7 @@
+### Install the Ingress Controller
+```
+https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/
+```
 
 ### Deploy Nginx Ingress Controller
 ```
