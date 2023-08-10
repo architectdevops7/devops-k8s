@@ -4,6 +4,7 @@ metadata:
   name: {{ include "nginx-app.fullname" . }}
   labels:
     app: {{ include "nginx-app.name" . }}
+    job: nginx
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
