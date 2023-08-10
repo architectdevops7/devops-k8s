@@ -18,16 +18,18 @@ helm repo add stable https://charts.helm.sh/stable
 helm repo update
 ```
 
-### Step 3: Install Prometheus Kubernetes
+### Step 3: Install Prometheus Kubernetes 
 ```
-helm install prometheus prometheus-community/kube-prometheus-stack
+kubectl create namespace monitoring
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm install prometheus-operator prometheus-community/kube-prometheus-stack -n monitoring
 ```
 
 ### Step 4: Log in to Grafana
 ```
 The default credentials for now:
 username: admin
-password: prom-operator
+password: admin
 ```
 
 ### Overwrite the prometheus and grafana service
