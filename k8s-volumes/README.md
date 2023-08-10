@@ -7,4 +7,8 @@
 5. PV and PVC
     PV -> persistent volume is a resource which is created by storage administrator to provide storage provisioning
     PVC -> persistent volume claims will request the storage size allocating to pod level then it claims storage to the containers
-    
+
+### NFS driver
+```
+https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/tree/master/deploy
+``` 
