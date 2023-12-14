@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pv-task-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pv-task-deployment
+  template:
+    metadata:
+      labels:
+        app: pv-task-deployment
+    spec:
+      volumes:
+        - name: pv-vol
+          persistentVolumeClaim:
+            claimName: k8s-pv-claim
+      
+      containers:
+      - name: nginx-pods
+        image: nginx
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - mountPath: "/usr/share/nginx/html"
+            name: pv-vol
