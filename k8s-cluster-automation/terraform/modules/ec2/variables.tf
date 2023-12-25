@@ -9,7 +9,7 @@ variable "instance_name" {
 
 variable "ami_id" {
   type    = string
-  default = "ami-053b0d53c279acc90"
+  default = "ami-0c7217cdde317cfec"
 }
 
 variable "instance_type" {
@@ -24,7 +24,7 @@ variable "key_name" {
 
 variable "security_group_ids" {
   type    = list(string)
-  default = ["sg-01ce819e8d65269f0"]
+  default = ["sg-049bdc3ecd9e437ff"]
 }
 
 variable "instance_count" {
@@ -34,7 +34,7 @@ variable "instance_count" {
 
 variable "subnet_ids" {
   type    = list(string)
-  default = ["subnet-03c1e3efc05a20333", "subnet-0a1698f89d640a509"]
+  default = ["subnet-05fd53d4910b7083b"]
 }
 
 variable "inbound_from_port" {
@@ -54,7 +54,7 @@ variable "inbound_protocol" {
 
 variable "inbound_cidr" {
   type    = list(string)
-  default = ["172.31.0.0/20", "172.31.80.0/20"]
+  default = ["172.31.80.0/20"]
 }
 
 variable "outbound_from_port" {
@@ -74,6 +74,6 @@ variable "outbound_protocol" {
 
 variable "outbound_cidr" {
   type    = list(string)
-  default = ["172.31.0.0/20", "172.31.80.0/20"]
+  default = ["172.31.80.0/20"]
 }
 
