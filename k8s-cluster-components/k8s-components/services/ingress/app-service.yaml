@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: service1-container
-          image: service1-image:latest  # Replace with the image for service1
+          image: nginx:latest  # Replace with the image for service1
           ports:
             - containerPort: 80
 
@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - name: service2-container
-          image: service2-image:latest  # Replace with the image for service2
+          image: nginx:latest  # Replace with the image for service2
           ports:
             - containerPort: 80
 
