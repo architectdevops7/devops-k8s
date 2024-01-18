@@ -1,3 +1,5 @@
+## Method-1
+
 Deploy the Amazon EBS CSI driver:
 
 1. Download an example IAM policy with permissions that allow your worker nodes to create and modify Amazon EBS volumes:
@@ -100,4 +102,107 @@ kubectl describe storageclass ebs-sc
 kubectl get pods
 kubectl get pv,pvc
 kubectl exec -it app -- cat /data/out.txt
+```
+
+## Method-1
+
+1.Install kubectl:
+```
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+```
+
+```
+sudo yum install -y kubectl
+```
+
+2. Install eksctl:
+```
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+```
+
+```
+sudo mv /tmp/eksctl /usr/local/bin
+```
+
+3. Install and configure OIDC
+```
+eksctl utils associate-iam-oidc-provider --cluster "cluster-name" --approve
+```
+
+4. Install CSI driver
+```
+eksctl create iamserviceaccount \
+  --name ebs-csi-controller-sa \
+  --namespace kube-system \
+  --cluster "cluster-name" \
+  --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
+  --approve \
+  --role-only \
+  --role-name AmazonEKS_EBS_CSI_DriverRole
+```
+
+5. Addon to cluster
+```
+eksctl create addon --name aws-ebs-csi-driver --cluster "cluster-name" --service-account-role-arn arn:aws:iam::401231317770:role/AmazonEKS_EBS_CSI_DriverRole --force
+```
+
+6. Deploy the manifest
+
+storageclass.yaml
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+mountOptions:
+  - debug
+volumeBindingMode: Immediate
+```
+
+pvc.yaml
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ebs-sc
+  resources:
+    requests:
+      storage: 4Gi
+```
+
+pod.yaml
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+spec:
+  containers:
+  - name: app
+    image: centos
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do echo $(date -u) >> /data/out.txt; sleep 5; done"]
+    volumeMounts:
+    - name: persistent-storage
+      mountPath: /data
+  volumes:
+  - name: persistent-storage
+    persistentVolumeClaim:
+      claimName: ebs-claim
 ```
