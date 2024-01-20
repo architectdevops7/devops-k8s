@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: wordpress-hpa
@@ -6,7 +6,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: wordpress-v2
+    name: wordpress-4
   minReplicas: 1
   maxReplicas: 5  # Set the maximum number of replicas for scaling
   targetCPUUtilizationPercentage: 50
