@@ -24,8 +24,9 @@ Note: Make sure the Node IP range and pod IP range don’t overlap.
 
 ### Note:
 ```
-1. Step1 to Step6 execute on all the nodes
-2. Step7 execute only on worker nodes
+1. Step1 to Step3 execute on all the nodes
+2. Step4, Step6, Step8 and Step9 execute only on Master nodes
+3. Step7 execute only on worker nodes
 ```
 
 # Ensure iptables and swap are configured as expected
